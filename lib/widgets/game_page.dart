@@ -93,27 +93,39 @@ class GamePageState extends State<GamePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(60),
-            child: Text(
-              "You are playing as X",
-              style: TextStyle(fontSize: 25),
-            ),
+      body: Center(
+        child: Container(
+          width: 300,
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(60),
+                child: Text(
+                  "You are playing as X",
+                  style: TextStyle(fontSize: 25),
+                ),
+              ),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  children: List.generate(9, (idx) {
+                    return Container(
+                      height: 200,
+                      width: 200,
+                      child: Field(
+                          idx: idx,
+                          onTap: _movePlayed,
+                          playerSymbol: getSymbolForIdx(idx)),
+                    );
+                  }),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 3,
-              children: List.generate(9, (idx) {
-                return Field(
-                    idx: idx,
-                    onTap: _movePlayed,
-                    playerSymbol: getSymbolForIdx(idx));
-              }),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
